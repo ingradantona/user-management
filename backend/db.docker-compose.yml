@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  user-mgmt:
+    container_name: user-mgmt
+    image: postgres:16.2-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: raimundo
+      POSTGRES_DB: user-mgmt
+      PGDATA: /data/postgres
+      TZ: America/Manaus
+    ports:
+      - '5432:5432'
+    restart: unless-stopped
