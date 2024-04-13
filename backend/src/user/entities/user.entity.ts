@@ -17,8 +17,6 @@ export class User {
   @Column({ nullable: false, type: 'varchar' })
   user_password: string;
 
-  @Column({
-    type: 'bit',
-  })
+  @Column({ nullable: false, type: 'boolean' })
   user_status: boolean;
 }
