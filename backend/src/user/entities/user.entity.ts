@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Profile } from './profile.entity';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -19,4 +20,11 @@ export class User {
 
   @Column({ nullable: false, type: 'boolean' })
   user_status: boolean;
+
+  @Column({ nullable: false, type: 'int' })
+  profile_id: number;
+
+  @ManyToOne(() => Profile, (profile) => profile.users)
+  @JoinColumn({ name: 'profile_id' })
+  profile: Profile;
 }

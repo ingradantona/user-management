@@ -8,3 +8,8 @@ export enum ValidType {
   SPECIAL_CHARACTER = 'SPECIAL_CHARACTER',
   MINIMUM_ONE_NUMBER_STRING_SPECIAL_CHARACTER = 'MINIMUM_ONE_NUMBER_STRING_SPECIAL_CHARACTER',
 }
+
+export enum AccessProfile {
+  COMMON = 'Analista',
+  ADMIN = 'Administrador',
+}
