@@ -9,8 +9,12 @@ export class Utils {
     return Utils.instance;
   }
 
-  async encryptPassword(pass: string): Promise<string> {
+  async hash(pass: string): Promise<string> {
     const saltOrRounds = 10;
     return bcrypt.hash(pass, saltOrRounds);
+  }
+
+  async isMatchHash(value: string, hash: string): Promise<boolean> {
+    return bcrypt.compare(value, hash);
   }
 }
