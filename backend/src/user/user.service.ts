@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -147,8 +147,65 @@ export class UserService {
       .getOne();
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    Validations.getInstance().validateWithRegex(`${id}`, ValidType.IS_NUMBER);
+
+    const { user_name, user_surname, user_email } = updateUserDto;
+
+    const user = await this.userRepository.preload({
+      ...updateUserDto,
+      user_id: id,
+    });
+
+    if (!user) {
+      throw new NotFoundException(`Usuário não econtrado.`);
+    }
+
+    if (user_email) {
+      Validations.getInstance().validateWithRegex(
+        user.user_email,
+        ValidType.IS_EMAIL,
+        ValidType.NO_SPACE,
+      );
+
+      const emailIsRegistered = await this.findByEmail(user.user_email);
+
+      if (emailIsRegistered && emailIsRegistered.user_id != id) {
+        throw new BadRequestException(`Este e-mail já foi cadastrado.`);
+      }
+    }
+
+    if (user_name) {
+      user.user_name = user_name.toUpperCase().trim();
+
+      Validations.getInstance().validateWithRegex(
+        user.user_name,
+        'nome',
+        ValidType.NO_MANY_SPACE,
+        ValidType.NO_SPECIAL_CHARACTER,
+        ValidType.IS_STRING,
+      );
+
+      Validations.getInstance().verifyLength(user.user_name, 'nome', 3, 40);
+    }
+
+    if (user_surname) {
+      user.user_surname = user_surname.toUpperCase().trim();
+
+      Validations.getInstance().validateWithRegex(
+        user.user_surname,
+        'sobrenome',
+        ValidType.NO_MANY_SPACE,
+        ValidType.NO_SPECIAL_CHARACTER,
+        ValidType.IS_STRING,
+      );
+
+      Validations.getInstance().verifyLength(user.user_surname, 'sobrenome', 3, 40);
+    }
+
+    await this.userRepository.save(user);
+
+    return this.findOne(id);
   }
 
   remove(id: number) {
