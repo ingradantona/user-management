@@ -5,6 +5,8 @@ import { NewUser } from '../pages/UserManagement/NewUser';
 import { UpdateUser } from '../pages/UserManagement/UpdateUser';
 import { NotFound } from '../pages/NotFound';
 import { Report } from '../pages/Report';
+import { PrivateRoute, ProtectedRoutes } from './PrivateRoutes';
+import { AccessProfile } from '../utils/enums/profile.enum';
 
 export function Routes() {
   return (
@@ -12,17 +14,23 @@ export function Routes() {
       <Route path="/" element={<Navigate to="/login" />} />
       <Route path="/login" element={<Login />} />
 
-      <Route element={'<ProtectedRoutes />'}>
+      <Route element={<ProtectedRoutes />}>
         <Route element={'<SidebarLayout />'}>
           <Route path="/home" element={'<Home />'} />
 
           <Route path="/users">
             <Route path="" element={<UserManagement />} />
-            <Route path="new" element={<NewUser />} />
+            <Route
+              path="new"
+              element={<PrivateRoute profile_name={AccessProfile.ADMIN} element={<NewUser />} />}
+            />
             <Route path="update" element={<UpdateUser />} />
           </Route>
 
-          <Route path="/report" element={<Report />} />
+          <Route
+            path="/report"
+            element={<PrivateRoute profile_name={AccessProfile.ADMIN} element={<Report />} />}
+          />
 
           <Route path="*" element={<NotFound />} />
         </Route>
