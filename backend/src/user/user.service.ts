@@ -10,23 +10,39 @@ import { Utils } from 'src/shared/utils';
 import { Pagination, paginate } from 'nestjs-typeorm-paginate';
 import { FilterUser } from './dto/filter-user.dto';
 import TokenInfo from 'src/auth/interfaces/token-info';
+import { Profile } from './entities/profile.entity';
+import { FilterChart } from './dto/filter-user-chart';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(Profile)
+    private readonly profileRepository: Repository<Profile>,
   ) {}
 
   async findByEmail(email: string) {
     return this.userRepository
       .createQueryBuilder('user')
+      .leftJoinAndSelect('user.profile', 'profile')
       .where('user.user_email = :user_email', { user_email: email })
       .getOne();
   }
 
+  private async findProfileById(id: number) {
+    return this.profileRepository.findOneBy({ profile_id: id });
+  }
+
+  async findAllProfiles() {
+    return this.profileRepository
+      .createQueryBuilder('profile')
+      .orderBy('profile_name', 'ASC')
+      .getMany();
+  }
+
   async create(createUserDto: CreateUserDto): Promise<UserResponseDto> {
-    const { user_name, user_surname, user_email, user_password } = createUserDto;
+    const { user_name, user_surname, user_email, user_password, profile_id } = createUserDto;
 
     if (user_name.trim() == '' || user_name == undefined) {
       throw new BadRequestException(`O campo 'nome' não pode estar vazio.`);
@@ -39,6 +55,9 @@ export class UserService {
     }
     if (user_password.trim() == '' || user_password == undefined) {
       throw new BadRequestException(`O campo 'senha' não pode estar vazio.`);
+    }
+    if (!profile_id) {
+      throw new BadRequestException(`O campo 'perfil' não pode estar vazio.`);
     }
 
     const user = this.userRepository.create(createUserDto);
@@ -53,6 +72,12 @@ export class UserService {
 
     if (emailIsRegistered) {
       throw new BadRequestException(`Este e-mail já foi cadastrado.`);
+    }
+
+    const profile = await this.findProfileById(profile_id);
+
+    if (!profile) {
+      throw new BadRequestException(`Este perfil não é válido`);
     }
 
     user.user_name = user_name.toUpperCase().trim();
@@ -109,6 +134,7 @@ export class UserService {
         'user.user_email',
         'user.user_status',
       ])
+      .leftJoinAndSelect('user.profile', 'profile')
       .orderBy('user.user_name', 'ASC');
 
     if (search) {
@@ -144,6 +170,7 @@ export class UserService {
         'user.user_email',
         'user.user_status',
       ])
+      .leftJoinAndSelect('user.profile', 'profile')
       .where('user.user_id = :user_id', { user_id: id })
       .getOne();
   }
@@ -228,5 +255,37 @@ export class UserService {
     await this.userRepository.save(user);
 
     return await this.findOne(id);
+  }
+
+  async chart(filter: FilterChart) {
+    const { profile_id } = filter;
+
+    const userQueryBuilder = this.userRepository.createQueryBuilder('user');
+
+    if (profile_id) {
+      userQueryBuilder.andWhere('user.profile_id = :profile_id', {
+        profile_id,
+      });
+    }
+
+    const users = await userQueryBuilder.getMany();
+
+    const result = users.reduce(
+      (acc, curr) => {
+        if (curr.user_status) {
+          acc.active += 1;
+        } else {
+          acc.inactive += 1;
+        }
+
+        return acc;
+      },
+      {
+        active: 0,
+        inactive: 0,
+      },
+    );
+
+    return result;
   }
 }

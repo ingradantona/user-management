@@ -12,4 +12,7 @@ export class CreateUserDto {
 
   @ApiProperty()
   user_password: string;
+
+  @ApiProperty()
+  profile_id: number;
 }
