@@ -1,21 +1,18 @@
-import { CanActivate, ExecutionContext, mixin, Type } from '@nestjs/common';
+import { CanActivate, ExecutionContext, mixin, Type, UnauthorizedException } from '@nestjs/common';
 import { isArray } from 'class-validator';
 import { AccessProfile } from 'src/shared/Enums';
 
-export function PermissionGuard(permission: any): Type<CanActivate> {
+export function PermissionGuard(permission: string): Type<CanActivate> {
   class PermissionGuardMixin implements CanActivate {
     async canActivate(context: ExecutionContext) {
       const request = context.switchToHttp().getRequest<any>();
       const profile: string = request?.user.profile_name;
 
-      if (profile === AccessProfile.ADMIN) {
+      if (profile === AccessProfile.ADMIN || profile === permission) {
         return true;
       }
 
-      if (isArray(permission)) {
-        return permission?.includes(profile);
-      }
-      return permission === profile;
+      throw new UnauthorizedException('Usuário não está autorizado');
     }
   }
   return mixin(PermissionGuardMixin);

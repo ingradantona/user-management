@@ -11,6 +11,7 @@ import { Pagination, paginate } from 'nestjs-typeorm-paginate';
 import { FilterUser } from './dto/filter-user.dto';
 import TokenInfo from 'src/auth/interfaces/token-info';
 import { Profile } from './entities/profile.entity';
+import { FilterChart } from './dto/filter-user-chart';
 
 @Injectable()
 export class UserService {
@@ -24,12 +25,20 @@ export class UserService {
   async findByEmail(email: string) {
     return this.userRepository
       .createQueryBuilder('user')
+      .leftJoinAndSelect('user.profile', 'profile')
       .where('user.user_email = :user_email', { user_email: email })
       .getOne();
   }
 
   private async findProfileById(id: number) {
     return this.profileRepository.findOneBy({ profile_id: id });
+  }
+
+  async findAllProfiles() {
+    return this.profileRepository
+      .createQueryBuilder('profile')
+      .orderBy('profile_name', 'ASC')
+      .getMany();
   }
 
   async create(createUserDto: CreateUserDto): Promise<UserResponseDto> {
@@ -246,5 +255,37 @@ export class UserService {
     await this.userRepository.save(user);
 
     return await this.findOne(id);
+  }
+
+  async chart(filter: FilterChart) {
+    const { profile_id } = filter;
+
+    const userQueryBuilder = this.userRepository.createQueryBuilder('user');
+
+    if (profile_id) {
+      userQueryBuilder.andWhere('user.profile_id = :profile_id', {
+        profile_id,
+      });
+    }
+
+    const users = await userQueryBuilder.getMany();
+
+    const result = users.reduce(
+      (acc, curr) => {
+        if (curr.user_status) {
+          acc.active += 1;
+        } else {
+          acc.inactive += 1;
+        }
+
+        return acc;
+      },
+      {
+        active: 0,
+        inactive: 0,
+      },
+    );
+
+    return result;
   }
 }
