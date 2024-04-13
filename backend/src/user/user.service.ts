@@ -133,8 +133,20 @@ export class UserService {
     return await paginate<User>(userBuilder, filter);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number): Promise<UserResponseDto> {
+    Validations.getInstance().validateWithRegex(`${id}`, ValidType.IS_NUMBER);
+
+    return await this.userRepository
+      .createQueryBuilder('user')
+      .select([
+        'user.user_id',
+        'user.user_name',
+        'user.user_surname',
+        'user.user_email',
+        'user.user_status',
+      ])
+      .where('user.user_id = :user_id', { user_id: id })
+      .getOne();
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
