@@ -87,7 +87,7 @@ export class UserService {
 
     Validations.getInstance().verifyLength(user.user_password, 'senha', 4, 40);
 
-    user.user_password = await Utils.getInstance().encryptPassword(user_password);
+    user.user_password = await Utils.getInstance().hash(user_password);
 
     user.user_status = true;
 

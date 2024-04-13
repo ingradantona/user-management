@@ -9,7 +9,6 @@ export class SwaggerService {
       .setDescription(process.env.SWAGGER_DESCRIPTION)
       .setVersion(process.env.SWAGGER_VERSION)
       .addBearerAuth()
-      .addBasicAuth()
       .addServer(process.env.SWAGGER_API_URL)
       .build();
 
