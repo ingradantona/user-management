@@ -3,10 +3,12 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { Repository } from 'typeorm';
+import { Brackets, Repository } from 'typeorm';
 import { Validations } from 'src/shared/validations';
 import { ValidType } from 'src/shared/Enums';
 import { Utils } from 'src/shared/utils';
+import { Pagination, paginate } from 'nestjs-typeorm-paginate';
+import { FilterUser } from './dto/filter-user.dto';
 
 @Injectable()
 export class UserService {
@@ -22,7 +24,7 @@ export class UserService {
       .getOne();
   }
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     const { user_name, user_surname, user_email, user_password } = createUserDto;
 
     if (user_name.trim() == '' || user_name == undefined) {
@@ -96,8 +98,39 @@ export class UserService {
     return userSaved;
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async findAll(filter: FilterUser): Promise<Pagination<UserResponseDto>> {
+    const { search, user_status } = filter;
+
+    const userBuilder = this.userRepository
+      .createQueryBuilder('user')
+      .select([
+        'user.user_id',
+        'user.user_name',
+        'user.user_surname',
+        'user.user_email',
+        'user.user_status',
+      ])
+      .orderBy('user.user_name', 'ASC');
+
+    if (search) {
+      userBuilder.andWhere(
+        new Brackets((queryBuilderOne) => {
+          queryBuilderOne
+            .where('user.user_name LIKE :user_name', {
+              user_name: `%${search}%`,
+            })
+            .orWhere('user.user_surname LIKE :user_surname', {
+              user_surname: `%${search}%`,
+            });
+        }),
+      );
+    }
+
+    if (user_status) {
+      userBuilder.andWhere('user.user_status = :user_status', { user_status });
+    }
+
+    return await paginate<User>(userBuilder, filter);
   }
 
   findOne(id: number) {
