@@ -208,7 +208,19 @@ export class UserService {
     return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async changeStatus(id: number) {
+    Validations.getInstance().validateWithRegex(`${id}`, ValidType.IS_NUMBER);
+
+    const user = await this.findOne(id);
+
+    if (!user) {
+      throw new NotFoundException(`Usuário não econtrado.`);
+    }
+
+    user.user_status = !user.user_status;
+
+    await this.userRepository.save(user);
+
+    return await this.findOne(id);
   }
 }
