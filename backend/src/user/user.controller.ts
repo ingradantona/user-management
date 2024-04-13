@@ -4,6 +4,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { FilterUser } from './dto/filter-user.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { User } from 'src/shared/user.decorator';
+import TokenInfo from 'src/auth/interfaces/token-info';
 @ApiTags('user')
 @ApiBearerAuth()
 @Controller('user')
@@ -26,8 +28,12 @@ export class UserController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+    @User() userReq: TokenInfo,
+  ) {
+    return this.userService.update(+id, updateUserDto, userReq);
   }
 
   @Patch('status/:id')

@@ -9,6 +9,7 @@ import { ValidType } from 'src/shared/Enums';
 import { Utils } from 'src/shared/utils';
 import { Pagination, paginate } from 'nestjs-typeorm-paginate';
 import { FilterUser } from './dto/filter-user.dto';
+import TokenInfo from 'src/auth/interfaces/token-info';
 
 @Injectable()
 export class UserService {
@@ -147,9 +148,10 @@ export class UserService {
       .getOne();
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: number, updateUserDto: UpdateUserDto, userReq: TokenInfo) {
     Validations.getInstance().validateWithRegex(`${id}`, ValidType.IS_NUMBER);
 
+    const { user_id } = userReq;
     const { user_name, user_surname, user_email } = updateUserDto;
 
     const user = await this.userRepository.preload({
@@ -159,6 +161,10 @@ export class UserService {
 
     if (!user) {
       throw new NotFoundException(`Usuário não econtrado.`);
+    }
+
+    if (user_id != user.user_id) {
+      throw new BadRequestException(`Edição não autorizada`);
     }
 
     if (user_email) {
