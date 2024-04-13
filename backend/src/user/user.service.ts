@@ -24,7 +24,7 @@ export class UserService {
       .getOne();
   }
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<UserResponseDto> {
     const { user_name, user_surname, user_email, user_password } = createUserDto;
 
     if (user_name.trim() == '' || user_name == undefined) {
@@ -91,11 +91,9 @@ export class UserService {
 
     user.user_status = true;
 
-    let userSaved = await this.userRepository.save(user);
+    await this.userRepository.save(user);
 
-    userSaved.user_password = user_password;
-
-    return userSaved;
+    return await this.findOne(user.user_id);
   }
 
   async findAll(filter: FilterUser): Promise<Pagination<UserResponseDto>> {
