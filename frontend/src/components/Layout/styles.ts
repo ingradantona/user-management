@@ -8,10 +8,10 @@ export const Page = styled.div`
 `;
 
 interface IPageProps {
-  isOpen?: boolean;
+  $isOpen?: boolean;
 }
 
-export const Menu = styled(motion.div).attrs<IPageProps>(({ isOpen }) => ({
+export const Menu = styled(motion.div).attrs<IPageProps>(({ $isOpen }) => ({
   variants: {
     open: {
       width: '20vw',
@@ -31,7 +31,7 @@ export const Menu = styled(motion.div).attrs<IPageProps>(({ isOpen }) => ({
     },
   },
   initial: 'close',
-  animate: isOpen ? 'open' : 'close',
+  animate: $isOpen ? 'open' : 'close',
 }))`
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.background.secondary};
@@ -39,6 +39,7 @@ export const Menu = styled(motion.div).attrs<IPageProps>(({ isOpen }) => ({
   border-radius: 0 15px 15px 0;
   padding: 1vw;
   display: flex;
+  gap: 1vw;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
@@ -49,7 +50,7 @@ export const Menu = styled(motion.div).attrs<IPageProps>(({ isOpen }) => ({
 
 export const LogoButton = styled.button`
   width: 100%;
-  height: 8vh;
+  height: 5vw;
   position: relative;
 
   & img {
@@ -80,7 +81,7 @@ export const LogoTitle = styled(motion.h3).attrs(() => ({
 }))`
   font-size: clamp(0.1rem, 1rem + 0.6vh, 1.2rem);
   font-family: 'Poppins', sans-serif;
-  color: ${({ theme }) => theme.colors.typography.basic};
+  color: ${({ theme }) => theme.colors.typography.title};
   margin-left: 2vw;
 `;
 
@@ -90,4 +91,101 @@ export const Content = styled(motion.main).attrs(() => ({
   animate: 'visible',
 }))`
   width: 100%;
+`;
+
+export const Divider = styled.div`
+  width: 100%;
+  height: 1.5px;
+  background-color: ${({ theme }) => theme.colors.background.border};
+`;
+
+export const RoutesContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+
+  .link {
+    color: ${({ theme }) => theme.colors.typography.basic};
+    font-family: 'Poppins', sans-serif;
+    border-radius: 8px;
+    height: 6vh;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    svg {
+      fill: ${({ theme }) => theme.colors.typography.basic};
+      position: absolute;
+      left: calc(3vw - 0.6vw);
+      height: auto;
+      width: 1.2vw;
+    }
+
+    &:hover {
+      transition: all 0.4s ease;
+      background-color: ${({ theme }) => theme.colors.secondary.main};
+
+      p {
+        color: ${({ theme }) => theme.colors.primary.main};
+      }
+
+      svg {
+        fill: ${({ theme }) => theme.colors.primary.main};
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 1vw;
+        width: 0.6vw;
+        height: 0.6vw;
+        border-radius: 50%;
+        background-color: ${({ theme }) => theme.colors.primary.main};
+      }
+    }
+  }
+
+  .active {
+    p {
+      color: ${({ theme }) => theme.colors.primary.main};
+    }
+
+    svg {
+      fill: ${({ theme }) => theme.colors.primary.main};
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 1vw;
+      width: 0.6vw;
+      height: 0.6vw;
+      border-radius: 50%;
+      background-color: ${({ theme }) => theme.colors.primary.main};
+    }
+  }
+`;
+
+export const AnimationText = styled(motion.p).attrs(() => ({
+  variants: hiddenVariants,
+  initial: 'hidden',
+  animate: 'visible',
+}))`
+  margin-left: 4.5vw;
+  white-space: nowrap;
+`;
+
+export const LogoutContainer = styled.div`
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  & p {
+    margin-left: 2.5vw;
+  }
 `;
