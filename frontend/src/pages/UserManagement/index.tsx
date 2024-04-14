@@ -3,6 +3,7 @@ import { Header2 } from '../../assets/styles/typography';
 import BasicTable from '../../components/BasicTable';
 import { ButtonMain } from '../../components/Button/ButtonMain';
 import { Search } from '../../components/Input/Search';
+import { Pagination } from '../../components/Pagination';
 import { ToggleBox } from '../../components/Toggle';
 import UseUserManagementController from './useUserManagement.controller';
 
@@ -15,6 +16,9 @@ export function UserManagement() {
     headers,
     tableData,
     handleChangeStatus,
+    pageParam,
+    setPageParam,
+    totalPageParam,
   } = UseUserManagementController();
   return (
     <>
@@ -35,6 +39,11 @@ export function UserManagement() {
           headers={headers}
           enableActions
           onChangeStatus={handleChangeStatus}
+        />
+        <Pagination
+          currentPage={pageParam}
+          totalPages={totalPageParam}
+          onPageChange={setPageParam}
         />
       </BasePageContainer>
     </>

@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 export default function UseUserManagementController() {
   const [searchParam, setSearchParam] = useState<string>('');
   const [pageParam, setPageParam] = useState(1);
+  const [totalPageParam, settotalPageParam] = useState(1);
   const [statusParam, setStatusParam] = useState(true);
   const [tableData, setTableData] = useState<IUserTableRow[]>([] as IUserTableRow[]);
 
@@ -31,6 +32,7 @@ export default function UseUserManagementController() {
           userStatus: item.user_status,
         }));
 
+        settotalPageParam(dataSuccess.data.meta.totalPages);
         setTableData(data);
       },
     },
@@ -78,6 +80,9 @@ export default function UseUserManagementController() {
 
   return {
     searchParam,
+    pageParam,
+    setPageParam,
+    totalPageParam,
     onSearch,
     statusParam,
     setStatusParam,
