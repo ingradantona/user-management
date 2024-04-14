@@ -32,6 +32,7 @@ export default function UseUserManagementController() {
           userSurname: item.user_surname,
           userEmail: item.user_email,
           userStatus: item.user_status,
+          userProfile: item.profile.profile_name,
         }));
 
         settotalPageParam(dataSuccess.data.meta.totalPages);
@@ -44,14 +45,14 @@ export default function UseUserManagementController() {
     {
       key: 'userName',
       value: 'Nome',
-      columnWidth: '35%',
+      columnWidth: '25%',
       leftBody: true,
       leftHeader: true,
     },
     {
       key: 'userSurname',
       value: 'Sobrenome',
-      columnWidth: '35%',
+      columnWidth: '25%',
       leftBody: true,
       leftHeader: true,
     },
@@ -59,6 +60,13 @@ export default function UseUserManagementController() {
       key: 'userEmail',
       value: 'E-mail',
       columnWidth: '35%',
+      leftBody: true,
+      leftHeader: true,
+    },
+    {
+      key: 'userProfile',
+      value: 'Perfil',
+      columnWidth: '15%',
       leftBody: true,
       leftHeader: true,
     },

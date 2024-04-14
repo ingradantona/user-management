@@ -14,7 +14,7 @@ export interface ICreateUser {
   user_surname: string;
   user_email: string;
   user_password: string;
-  profile: number;
+  profile_id?: number;
 }
 
 export interface IUsersResponse {
@@ -33,11 +33,12 @@ export interface IUserTableRow {
   userName: string;
   userSurname: string;
   userEmail: string;
+  userProfile: string;
   userStatus: boolean;
 }
 
 export interface IProfile {
-  profile_id: Number;
+  profile_id: number;
   profile_name: AccessProfile.ADMIN | AccessProfile.COMMON;
 }
 

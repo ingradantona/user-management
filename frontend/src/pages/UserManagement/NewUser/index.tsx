@@ -2,6 +2,7 @@ import { BasePageContainer, FormContainer } from '../../../assets/styles/shared'
 import { Header2 } from '../../../assets/styles/typography';
 import { ButtonMain } from '../../../components/Button/ButtonMain';
 import { DefaultInput } from '../../../components/Input/DefaultInput';
+import { Select } from '../../../components/Input/Select';
 import UseNewUserController from './useNewUser.controller';
 
 export function NewUser() {
@@ -18,6 +19,10 @@ export function NewUser() {
     userPassword,
     userSurname,
     handleSubmit,
+    isLoading,
+    userProfile,
+    options,
+    setUserProfile,
   } = UseNewUserController();
 
   return (
@@ -53,7 +58,17 @@ export function NewUser() {
             showPassword={showPassword}
             toggleShowPassword={handleShowPassword}
           />
-          <ButtonMain label="Cadastrar" type="submit" disabled={!isFormValid} />
+          <Select
+            value={userProfile}
+            values={options}
+            onChangeValue={(value) => setUserProfile(value)}
+          />
+          <ButtonMain
+            label="Cadastrar"
+            type="submit"
+            disabled={!isFormValid}
+            isLoading={isLoading}
+          />
         </FormContainer>
       </BasePageContainer>
     </>
