@@ -9,6 +9,14 @@ export interface IUser {
   profile: IProfile;
 }
 
+export interface ICreateUser {
+  user_name: string;
+  user_surname: string;
+  user_email: string;
+  user_password: string;
+  profile_id?: number;
+}
+
 export interface IUsersResponse {
   items: IUser[];
   meta: {
@@ -25,11 +33,12 @@ export interface IUserTableRow {
   userName: string;
   userSurname: string;
   userEmail: string;
+  userProfile: string;
   userStatus: boolean;
 }
 
 export interface IProfile {
-  profile_id: Number;
+  profile_id: number;
   profile_name: AccessProfile.ADMIN | AccessProfile.COMMON;
 }
 

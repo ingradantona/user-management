@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
+import toast from 'react-hot-toast';
 
 const APP_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -23,12 +24,15 @@ api.interceptors.request.use((config: any) => {
   }
 });
 
-// api.interceptors.response.use(
-//   (response: any) => response,
-//   (error: { response: { status: number }; config: any }) => {
-//     if (error.response?.status === 401) {
-//     }
-//   },
-// );
+api.interceptors.response.use(
+  (response: any) => response,
+  (error: { response: { status: number }; config: any }) => {
+    if (error.response?.status === 401) {
+      toast.error('Sua sessão expirou');
+      localStorage.clear();
+      setTimeout(() => (window.location.href = '/'), 1000);
+    }
+  },
+);
 
 export default api;

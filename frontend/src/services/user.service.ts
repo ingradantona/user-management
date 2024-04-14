@@ -1,6 +1,12 @@
 import { AxiosResponse } from 'axios';
 import api from './api.service';
-import { IUser, IUserFilter, IUsersResponse } from '../utils/interface/user.interface';
+import {
+  ICreateUser,
+  IUser,
+  IUserFilter,
+  IUsersResponse,
+  IProfile,
+} from '../utils/interface/user.interface';
 
 export async function getAllUsersService({
   page,
@@ -19,4 +25,12 @@ export async function getAllUsersService({
 
 export async function changeUserStatus(id: number): Promise<AxiosResponse<IUser>> {
   return await api.patch(`/user/status/${id}`);
+}
+
+export async function createUser(payload: ICreateUser): Promise<AxiosResponse<IUser>> {
+  return await api.post(`/user`, payload);
+}
+
+export async function getProfiles(): Promise<AxiosResponse<IProfile[]>> {
+  return await api.get(`/user/profiles`);
 }

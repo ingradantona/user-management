@@ -19,6 +19,7 @@ export function UserManagement() {
     pageParam,
     setPageParam,
     totalPageParam,
+    goToCreateUser,
   } = UseUserManagementController();
   return (
     <>
@@ -31,7 +32,7 @@ export function UserManagement() {
             onChangeInactive={() => setStatusParam(false)}
           />
           <Search value={searchParam} onSearch={onSearch} />
-          <ButtonMain label="Cadastrar Usuário" />
+          <ButtonMain label="Cadastrar Usuário" onClick={goToCreateUser} />
           <ButtonMain label="Editar dados" $secondaryStyle />
         </InLineContainerBetween>
         <BasicTable
