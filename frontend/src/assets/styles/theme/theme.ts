@@ -2,7 +2,7 @@ export const theme = {
   colors: {
     typography: {
       title: '#141515',
-      emphasys: '#69490B',
+      emphasys: '#141530',
       basic: '#7A8699',
     },
     primary: {
@@ -14,7 +14,9 @@ export const theme = {
     background: {
       primary: '#E9EBF0',
       secondary: '#FFFFFF',
-      border: '#E7E7E7',
+      border: '#D9D9D9',
     },
+    success: '#48DDAD',
+    danger: '#ED6062',
   },
 };
