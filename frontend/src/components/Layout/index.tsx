@@ -16,13 +16,34 @@ import { NavLink } from 'react-router-dom';
 import Avatar from '../Avatar';
 import { ToastContainer } from '../TostContainer';
 import { AccessProfile } from '../../utils/enums/profile.enum';
+import { ButtonMain } from '../Button/ButtonMain';
+import { Modal } from '../Modal';
+import { Header2 } from '../../assets/styles/typography';
+import { InLineContainerCenter } from '../../assets/styles/shared';
 
 export function Layout({ children }: LayoutProps) {
-  const { isOpen, toggleSidebar, routes, userName, userSurname, profile } = useLayoutContoller();
+  const {
+    isOpen,
+    toggleSidebar,
+    routes,
+    userName,
+    userSurname,
+    profile,
+    modalLogoutOpen,
+    handleModalLogout,
+    handleLogout,
+  } = useLayoutContoller();
 
   return (
     <Page>
       <ToastContainer />
+      <Modal isModalActive={modalLogoutOpen}>
+        <Header2>Deseja sair da aplicação?</Header2>
+        <InLineContainerCenter>
+          <ButtonMain label="Sair" onClick={handleLogout} />
+          <ButtonMain $secondaryStyle label="Cancelar" onClick={handleModalLogout} />
+        </InLineContainerCenter>
+      </Modal>
       <Menu $isOpen={isOpen}>
         <LogoButton onClick={toggleSidebar}>
           <img src={smallLogo} />
@@ -43,6 +64,7 @@ export function Layout({ children }: LayoutProps) {
               );
           })}
         </RoutesContainer>
+
         <Divider />
         <LogoutContainer>
           <Avatar className="avatar" />
@@ -55,6 +77,9 @@ export function Layout({ children }: LayoutProps) {
             </div>
           )}
         </LogoutContainer>
+
+        <Divider />
+        <ButtonMain $secondaryStyle label="Sair" onClick={handleModalLogout} />
       </Menu>
       <Content>{children}</Content>
     </Page>

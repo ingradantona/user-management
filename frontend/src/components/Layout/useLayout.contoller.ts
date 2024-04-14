@@ -7,11 +7,16 @@ import { AccessProfile } from '../../utils/enums/profile.enum';
 
 export default function useLayoutContoller() {
   const [isOpen, setIsOpen] = useState(false);
+  const [modalLogoutOpen, setModalLogoutOpen] = useState(false);
 
-  const { userName, userSurname, profile } = useContext(AuthContext);
+  const { userName, userSurname, profile, handleLogout } = useContext(AuthContext);
 
   function toggleSidebar() {
     setIsOpen(!isOpen);
+  }
+
+  function handleModalLogout() {
+    setModalLogoutOpen(!modalLogoutOpen);
   }
 
   const routes: {
@@ -44,5 +49,8 @@ export default function useLayoutContoller() {
     userName,
     userSurname,
     profile,
+    modalLogoutOpen,
+    handleModalLogout,
+    handleLogout,
   };
 }
