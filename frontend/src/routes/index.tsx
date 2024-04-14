@@ -7,15 +7,26 @@ import { NotFound } from '../pages/NotFound';
 import { Report } from '../pages/Report';
 import { PrivateRoute, ProtectedRoutes } from './PrivateRoutes';
 import { AccessProfile } from '../utils/enums/profile.enum';
+import { Layout } from '../components/Layout';
 
 export function Routes() {
+  const SidebarLayout = () => (
+    <>
+      <Layout>
+        {/* <Outlet /> */}
+        <p>teste</p>
+      </Layout>
+    </>
+  );
+
   return (
     <RoutesWrapper>
       <Route path="/" element={<Navigate to="/login" />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/layout" element={<SidebarLayout />} />
 
       <Route element={<ProtectedRoutes />}>
-        <Route element={'<SidebarLayout />'}>
+        <Route element={<SidebarLayout />}>
           <Route path="/home" element={'<Home />'} />
 
           <Route path="/users">
