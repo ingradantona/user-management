@@ -1,6 +1,25 @@
 import { createGlobalStyle } from 'styled-components';
+import PoppinsBold from '../fonts/Poppins-Bold.ttf';
+import PoppinsMedium from '../fonts/Poppins-Medium.ttf';
+import Poppins from '../fonts/Poppins-Regular.ttf';
 
 export const GlobalStyles = createGlobalStyle`
+
+  @font-face {
+    font-family: 'Poppins Bold';
+    src: url(${PoppinsBold}) format("woff2");
+  }
+
+  @font-face {
+    font-family: 'Poppins Medium';
+    src: url(${PoppinsMedium}) format("woff2");
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url(${Poppins}) format("woff2");
+  }
+
   * {
     margin: 0;
     padding: 0;
