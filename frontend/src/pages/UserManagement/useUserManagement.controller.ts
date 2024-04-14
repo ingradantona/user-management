@@ -10,10 +10,6 @@ export default function UseUserManagementController() {
   const [statusParam, setStatusParam] = useState(true);
   const [tableData, setTableData] = useState<IUserTableRow[]>([] as IUserTableRow[]);
 
-  function onSearch(e: string) {
-    setSearchParam(e);
-    setPageParam(1);
-  }
   const { refetch } = useQuery(
     ['user', searchParam, pageParam, statusParam],
     async () => {
@@ -63,10 +59,23 @@ export default function UseUserManagementController() {
     },
   ];
 
+  function onSearch(e: string) {
+    setSearchParam(e);
+    setPageParam(1);
+  }
+
   async function handleChangeStatus(item: IUserTableRow) {
     await changeUserStatus(item.userId);
     refetch;
   }
 
-  return { searchParam, onSearch, headers, tableData, handleChangeStatus };
+  return {
+    searchParam,
+    onSearch,
+    statusParam,
+    setStatusParam,
+    headers,
+    tableData,
+    handleChangeStatus,
+  };
 }
