@@ -8,6 +8,14 @@ export const InLineContainerCenter = styled.div`
   gap: 1vw;
 `;
 
+export const InLineContainerBetween = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1vw;
+`;
+
 export const FormContainer = styled.form`
   width: 100%;
   display: flex;
@@ -23,6 +31,7 @@ export const BasePageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 1vw;
   justify-content: space-between;
   flex-grow: 1;
   background-color: #ffffff;
