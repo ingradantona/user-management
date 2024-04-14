@@ -9,6 +9,14 @@ export interface IUser {
   profile: IProfile;
 }
 
+export interface ICreateUser {
+  user_name: string;
+  user_surname: string;
+  user_email: string;
+  user_password: string;
+  profile: number;
+}
+
 export interface IUsersResponse {
   items: IUser[];
   meta: {

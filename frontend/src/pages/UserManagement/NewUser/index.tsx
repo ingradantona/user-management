@@ -17,13 +17,14 @@ export function NewUser() {
     userName,
     userPassword,
     userSurname,
+    handleSubmit,
   } = UseNewUserController();
 
   return (
     <>
       <Header2>Criação de Usuário</Header2>
       <BasePageContainer>
-        <FormContainer>
+        <FormContainer onSubmit={handleSubmit}>
           <DefaultInput
             label="Nome"
             placeholder="Insia o nome do usuário"
