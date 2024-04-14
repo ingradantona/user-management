@@ -15,9 +15,10 @@ import useLayoutContoller from './useLayout.contoller';
 import { NavLink } from 'react-router-dom';
 import Avatar from '../Avatar';
 import { ToastContainer } from '../TostContainer';
+import { AccessProfile } from '../../utils/enums/profile.enum';
 
 export function Layout({ children }: LayoutProps) {
-  const { isOpen, toggleSidebar, routes } = useLayoutContoller();
+  const { isOpen, toggleSidebar, routes, userName, userSurname, profile } = useLayoutContoller();
 
   return (
     <Page>
@@ -29,20 +30,30 @@ export function Layout({ children }: LayoutProps) {
         </LogoButton>
         <Divider />
         <RoutesContainer>
-          {routes.map((route) => (
-            <NavLink
-              to={route.path}
-              className={({ isActive }) => (isActive ? 'link active' : 'link')}
-            >
-              {route.icon({})}
-              {isOpen && <AnimationText>{route.name}</AnimationText>}
-            </NavLink>
-          ))}
+          {routes.map((route) => {
+            if (profile === route.permission || profile === AccessProfile.ADMIN)
+              return (
+                <NavLink
+                  to={route.path}
+                  className={({ isActive }) => (isActive ? 'link active' : 'link')}
+                >
+                  {route.icon({})}
+                  {isOpen && <AnimationText>{route.name}</AnimationText>}
+                </NavLink>
+              );
+          })}
         </RoutesContainer>
         <Divider />
         <LogoutContainer>
           <Avatar className="avatar" />
-          {isOpen && <AnimationText>Ingra Souza</AnimationText>}
+          {isOpen && (
+            <div>
+              <AnimationText>
+                {userName} {userSurname}
+              </AnimationText>
+              <AnimationText>{profile}</AnimationText>
+            </div>
+          )}
         </LogoutContainer>
       </Menu>
       <Content>{children}</Content>
