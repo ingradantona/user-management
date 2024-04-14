@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes as RoutesWrapper } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes as RoutesWrapper } from 'react-router-dom';
 import { Login } from '../pages/Login';
 import { UserManagement } from '../pages/UserManagement';
 import { NewUser } from '../pages/UserManagement/NewUser';
@@ -13,8 +13,7 @@ export function Routes() {
   const SidebarLayout = () => (
     <>
       <Layout>
-        {/* <Outlet /> */}
-        <p>teste</p>
+        <Outlet />
       </Layout>
     </>
   );
@@ -23,7 +22,6 @@ export function Routes() {
     <RoutesWrapper>
       <Route path="/" element={<Navigate to="/login" />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/layout" element={<SidebarLayout />} />
 
       <Route element={<ProtectedRoutes />}>
         <Route element={<SidebarLayout />}>
