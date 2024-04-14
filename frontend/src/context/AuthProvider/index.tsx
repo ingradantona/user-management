@@ -9,6 +9,7 @@ import {
   setTokenLocalStorage,
 } from '../../utils/hooks/useStorage';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
@@ -44,7 +45,10 @@ export function AuthProvider({ children }: IAuthProvider) {
 
         navigate('/home');
       })
-      .catch((error: CustomAxiosError) => {});
+      .catch((error: CustomAxiosError) => {
+        toast.dismiss();
+        toast.error(error.response?.data.message || 'Erro ao tentar fazer login');
+      });
   }
 
   function handleLogout() {}

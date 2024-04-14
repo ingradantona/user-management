@@ -6,6 +6,7 @@ import { FormContainer, InLineContainerCenter } from '../../assets/styles/shared
 import { DefaultInput } from '../../components/Input/DefaultInput';
 import UseLoginController from './useLogin.conroller';
 import { ButtonMain } from '../../components/Button/ButtonMain';
+import { ToastContainer } from '../../components/TostContainer';
 
 export function Login() {
   const {
@@ -21,6 +22,7 @@ export function Login() {
 
   return (
     <Background>
+      <ToastContainer />
       <img src={Bg} />
       <LoginContainer>
         <InLineContainerCenter>

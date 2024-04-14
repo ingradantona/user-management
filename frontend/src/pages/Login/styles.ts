@@ -7,6 +7,7 @@ export const Background = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 
   & > img {
     z-index: 0;

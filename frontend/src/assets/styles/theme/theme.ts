@@ -16,8 +16,8 @@ export const theme = {
       secondary: '#FFFFFF',
       border: '#D9D9D9',
     },
-    success: '#48DDAD',
-    danger: '#ED6062',
+    success: '#7BB27B',
+    danger: '#E03F33',
     disabled: '#D9D9D9',
   },
 };
