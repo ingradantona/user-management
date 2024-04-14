@@ -4,8 +4,10 @@ import { useQuery } from 'react-query';
 import { changeUserStatus, getAllUsersService } from '../../services/user.service';
 import { IUserFilter, IUserTableRow } from '../../utils/interface/user.interface';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 export default function UseUserManagementController() {
+  const navigate = useNavigate();
   const [searchParam, setSearchParam] = useState<string>('');
   const [pageParam, setPageParam] = useState(1);
   const [totalPageParam, settotalPageParam] = useState(1);
@@ -78,6 +80,10 @@ export default function UseUserManagementController() {
     }
   }
 
+  function goToCreateUser() {
+    navigate('/users/new');
+  }
+
   return {
     searchParam,
     pageParam,
@@ -89,5 +95,6 @@ export default function UseUserManagementController() {
     headers,
     tableData,
     handleChangeStatus,
+    goToCreateUser,
   };
 }
