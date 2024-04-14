@@ -1,10 +1,11 @@
 import { LayoutProps } from './types';
 import {
+  AnimationText,
   Content,
   Divider,
-  LinkName,
   LogoButton,
   LogoTitle,
+  LogoutContainer,
   Menu,
   Page,
   RoutesContainer,
@@ -12,6 +13,7 @@ import {
 import smallLogo from '../../assets/images/logo.svg';
 import useLayoutContoller from './useLayout.contoller';
 import { NavLink } from 'react-router-dom';
+import Avatar from '../Avatar';
 
 export function Layout({ children }: LayoutProps) {
   const { isOpen, toggleSidebar, routes } = useLayoutContoller();
@@ -31,10 +33,15 @@ export function Layout({ children }: LayoutProps) {
               className={({ isActive }) => (isActive ? 'link active' : 'link')}
             >
               {route.icon({})}
-              {isOpen && <LinkName>{route.name}</LinkName>}
+              {isOpen && <AnimationText>{route.name}</AnimationText>}
             </NavLink>
           ))}
         </RoutesContainer>
+        <Divider />
+        <LogoutContainer>
+          <Avatar className="avatar" />
+          {isOpen && <AnimationText>Ingra Souza</AnimationText>}
+        </LogoutContainer>
       </Menu>
       <Content>{children}</Content>
     </Page>

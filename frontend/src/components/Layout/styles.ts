@@ -50,7 +50,7 @@ export const Menu = styled(motion.div).attrs<IPageProps>(({ $isOpen }) => ({
 
 export const LogoButton = styled.button`
   width: 100%;
-  height: 8vh;
+  height: 5vw;
   position: relative;
 
   & img {
@@ -101,6 +101,7 @@ export const Divider = styled.div`
 
 export const RoutesContainer = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 3vh;
@@ -111,7 +112,7 @@ export const RoutesContainer = styled.div`
     border-radius: 8px;
     height: 6vh;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all 0.4s ease;
     display: flex;
     align-items: center;
     position: relative;
@@ -125,6 +126,7 @@ export const RoutesContainer = styled.div`
     }
 
     &:hover {
+      transition: all 0.4s ease;
       background-color: ${({ theme }) => theme.colors.secondary.main};
 
       p {
@@ -134,15 +136,56 @@ export const RoutesContainer = styled.div`
       svg {
         fill: ${({ theme }) => theme.colors.primary.main};
       }
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 1vw;
+        width: 0.6vw;
+        height: 0.6vw;
+        border-radius: 50%;
+        background-color: ${({ theme }) => theme.colors.primary.main};
+      }
+    }
+  }
+
+  .active {
+    p {
+      color: ${({ theme }) => theme.colors.primary.main};
+    }
+
+    svg {
+      fill: ${({ theme }) => theme.colors.primary.main};
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 1vw;
+      width: 0.6vw;
+      height: 0.6vw;
+      border-radius: 50%;
+      background-color: ${({ theme }) => theme.colors.primary.main};
     }
   }
 `;
 
-export const LinkName = styled(motion.p).attrs(() => ({
+export const AnimationText = styled(motion.p).attrs(() => ({
   variants: hiddenVariants,
   initial: 'hidden',
   animate: 'visible',
 }))`
   margin-left: 4.5vw;
   white-space: nowrap;
+`;
+
+export const LogoutContainer = styled.div`
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  & p {
+    margin-left: 2.5vw;
+  }
 `;
