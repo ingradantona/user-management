@@ -14,7 +14,7 @@ export const FormContainer = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1vh;
+  gap: 2vh;
 `;
 
 export function InputTheme() {

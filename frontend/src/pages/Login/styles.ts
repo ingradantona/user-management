@@ -18,9 +18,12 @@ export const Background = styled.div`
 
 export const LoginContainer = styled.div`
   z-index: 1;
-  width: 30vw;
-  height: 50vh;
-  padding: 1vw;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  width: 45vw;
+  max-width: 350px;
+  padding: 3vw;
   border-radius: 10px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   box-shadow: 0px 0px 31px 0px rgba(0, 0, 0, 0.53);

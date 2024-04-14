@@ -7,10 +7,10 @@ export const ButtonCreateContainer = styled.button<ButtonMainProps>`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 2vw;
+  padding: 1vw;
   font-family: 'Poppins';
-  width: ${({ width }) => (width ? width : '123px')};
-  height: ${({ height }) => (height ? height : '5.5vh')};
+  width: ${({ width }) => (width ? width : '100%')};
+  height: ${({ height }) => (height ? height : '100%')};
   color: ${({ theme }) => theme.colors.background.secondary};
   background-color: ${({ theme }) => theme.colors.primary.main};
   border: none;
