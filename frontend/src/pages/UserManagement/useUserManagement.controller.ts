@@ -3,6 +3,7 @@ import { ITableHeader } from '../../components/BasicTable/types';
 import { useQuery } from 'react-query';
 import { changeUserStatus, getAllUsersService } from '../../services/user.service';
 import { IUserFilter, IUserTableRow } from '../../utils/interface/user.interface';
+import toast from 'react-hot-toast';
 
 export default function UseUserManagementController() {
   const [searchParam, setSearchParam] = useState<string>('');
@@ -60,13 +61,19 @@ export default function UseUserManagementController() {
   ];
 
   function onSearch(e: string) {
+    console.log(e);
     setSearchParam(e);
     setPageParam(1);
   }
 
   async function handleChangeStatus(item: IUserTableRow) {
-    await changeUserStatus(item.userId);
-    refetch;
+    try {
+      await changeUserStatus(item.userId);
+    } catch (err) {
+      toast.error('Não foi possivel realizar esta ação');
+    } finally {
+      refetch();
+    }
   }
 
   return {
