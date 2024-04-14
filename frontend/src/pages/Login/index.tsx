@@ -8,7 +8,16 @@ import UseLoginController from './useLogin.conroller';
 import { ButtonMain } from '../../components/Button/ButtonMain';
 
 export function Login() {
-  const { email, setEmail } = UseLoginController();
+  const {
+    userEmail,
+    setUserEmail,
+    userPassword,
+    setUserPassword,
+    handleSubmit,
+    handleShowPassword,
+    showPassword,
+    isLoading,
+  } = UseLoginController();
 
   return (
     <Background>
@@ -18,16 +27,24 @@ export function Login() {
           <img src={smallLogo} />
           <Header1>Users.co</Header1>
         </InLineContainerCenter>
-        <FormContainer>
+        <FormContainer onSubmit={handleSubmit}>
           <DefaultInput
             label="E-mail"
             placeholder="Insia seu e-mail"
             type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={userEmail}
+            onChange={(e) => setUserEmail(e.target.value)}
           />
-          <DefaultInput label="Senha" placeholder="Insia seu e-mail" type="password" />
-          <ButtonMain label="Entrar" />
+          <DefaultInput
+            label="Senha"
+            placeholder="Insia seu e-mail"
+            type="password"
+            value={userPassword}
+            onChange={(e) => setUserPassword(e.target.value)}
+            showPassword={showPassword}
+            toggleShowPassword={handleShowPassword}
+          />
+          <ButtonMain label="Entrar" type="submit" isLoading={isLoading} />
         </FormContainer>
       </LoginContainer>
     </Background>
