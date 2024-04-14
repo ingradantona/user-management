@@ -15,7 +15,7 @@ export const Header1 = styled.h1<ITypography>`
 
 export const Header2 = styled.h2<ITypography>`
   ${({ theme, $fontColor }) => css`
-    font-size: 2vh;
+    font-size: 3vh;
     font-family: 'Poppins Bold';
     color: ${$fontColor ? $fontColor : theme.colors.typography.title};
   `}
@@ -31,7 +31,7 @@ export const Body1 = styled.p<ITypography>`
 
 export const Body2 = styled.p<ITypography>`
   ${({ theme, $fontColor }) => css`
-    font-size: 1.8vh;
+    font-size: 2%.2;
     font-family: 'Poppins Medium';
     color: ${$fontColor ? $fontColor : theme.colors.typography.emphasys};
   `}

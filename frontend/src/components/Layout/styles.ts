@@ -5,6 +5,8 @@ export const Page = styled.div`
   width: 100vw;
   display: flex;
   background-color: ${({ theme }) => theme.colors.background.primary};
+  position: relative;
+  overflow-y: hidden;
 `;
 
 interface IPageProps {
@@ -91,6 +93,10 @@ export const Content = styled(motion.main).attrs(() => ({
   animate: 'visible',
 }))`
   width: 100%;
+  padding: 1vw 2vw 2vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
 `;
 
 export const Divider = styled.div`
