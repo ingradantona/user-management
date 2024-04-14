@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { FormGroupProps } from './types';
 
 export const Container = styled.div<FormGroupProps>`

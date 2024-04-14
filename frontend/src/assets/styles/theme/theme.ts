@@ -18,5 +18,6 @@ export const theme = {
     },
     success: '#48DDAD',
     danger: '#ED6062',
+    disabled: '#D9D9D9',
   },
 };

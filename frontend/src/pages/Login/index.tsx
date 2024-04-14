@@ -5,6 +5,7 @@ import { Header1 } from '../../assets/styles/typography';
 import { FormContainer, InLineContainerCenter } from '../../assets/styles/shared';
 import { DefaultInput } from '../../components/Input/DefaultInput';
 import UseLoginController from './useLogin.conroller';
+import { ButtonMain } from '../../components/Button/ButtonMain';
 
 export function Login() {
   const { email, setEmail } = UseLoginController();
@@ -25,6 +26,8 @@ export function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <DefaultInput label="Senha" placeholder="Insia seu e-mail" type="password" />
+          <ButtonMain label="Entrar" />
         </FormContainer>
       </LoginContainer>
     </Background>
