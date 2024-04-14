@@ -18,7 +18,6 @@ export function AuthProvider({ children }: IAuthProvider) {
 
   const [userName, setUserName] = useState<string | null>(null);
   const [userSurname, setUserSurname] = useState<string | null>(null);
-  const [visibleModalLogout, setVisivleModalLogout] = useState<boolean>(false);
   const [profile, setProfile] = useState<string | null>(null);
 
   const tokenByLocalStorage: string | null = getTokenLocalStorage();
@@ -51,7 +50,11 @@ export function AuthProvider({ children }: IAuthProvider) {
       });
   }
 
-  function handleLogout() {}
+  async function handleLogout() {
+    localStorage.clear();
+    await navigate('login');
+    toast.success('Você saiu da aplicação!');
+  }
 
   return (
     <AuthContext.Provider
@@ -59,8 +62,6 @@ export function AuthProvider({ children }: IAuthProvider) {
         userName,
         userSurname,
         profile,
-        visibleModalLogout,
-        setVisivleModalLogout,
         handleLogin,
         handleLogout,
       }}
