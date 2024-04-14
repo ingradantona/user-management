@@ -8,6 +8,7 @@ import { Report } from '../pages/Report';
 import { PrivateRoute, ProtectedRoutes } from './PrivateRoutes';
 import { AccessProfile } from '../utils/enums/profile.enum';
 import { Layout } from '../components/Layout';
+import { Home } from '../pages/Home';
 
 export function Routes() {
   const SidebarLayout = () => (
@@ -25,7 +26,7 @@ export function Routes() {
 
       <Route element={<ProtectedRoutes />}>
         <Route element={<SidebarLayout />}>
-          <Route path="/home" element={'<Home />'} />
+          <Route path="/home" element={<Home />} />
 
           <Route path="/users">
             <Route path="" element={<UserManagement />} />

@@ -14,12 +14,14 @@ import smallLogo from '../../assets/images/logo.svg';
 import useLayoutContoller from './useLayout.contoller';
 import { NavLink } from 'react-router-dom';
 import Avatar from '../Avatar';
+import { ToastContainer } from '../TostContainer';
 
 export function Layout({ children }: LayoutProps) {
   const { isOpen, toggleSidebar, routes } = useLayoutContoller();
 
   return (
     <Page>
+      <ToastContainer />
       <Menu $isOpen={isOpen}>
         <LogoButton onClick={toggleSidebar}>
           <img src={smallLogo} />

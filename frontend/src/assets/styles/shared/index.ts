@@ -17,6 +17,19 @@ export const FormContainer = styled.form`
   gap: 2vh;
 `;
 
+export const BasePageContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 10px #00000015;
+  border-radius: 10px;
+`;
+
 export function InputTheme() {
   const { colors: theme } = useTheme();
 
