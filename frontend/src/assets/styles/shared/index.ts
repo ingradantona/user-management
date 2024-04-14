@@ -31,7 +31,8 @@ export const BasePageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1vw;
+  padding: 2vh;
+  gap: 3vh;
   justify-content: space-between;
   flex-grow: 1;
   background-color: #ffffff;

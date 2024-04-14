@@ -55,6 +55,7 @@ export function Layout({ children }: LayoutProps) {
             if (profile === route.permission || profile === AccessProfile.ADMIN)
               return (
                 <NavLink
+                  key={route.id}
                   to={route.path}
                   className={({ isActive }) => (isActive ? 'link active' : 'link')}
                 >
