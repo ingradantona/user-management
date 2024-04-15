@@ -42,6 +42,7 @@ export function Row({
             <Actions>
               {onChangeStatus && (
                 <button
+                  disabled={canChangeStatus}
                   onClick={() => {
                     if (onChangeStatus) {
                       onChangeStatus(row.$original);

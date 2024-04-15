@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { ITableHeader } from '../../components/BasicTable/types';
 import { useQuery } from 'react-query';
 import { changeUserStatus, getAllUsersService } from '../../services/user.service';
 import { IUserFilter, IUserTableRow } from '../../utils/interface/user.interface';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { AccessProfile } from '../../utils/enums/profile.enum';
+import { AuthContext } from '../../context/AuthProvider';
 
 export default function UseUserManagementController() {
   const navigate = useNavigate();
@@ -13,6 +15,10 @@ export default function UseUserManagementController() {
   const [totalPageParam, settotalPageParam] = useState(1);
   const [statusParam, setStatusParam] = useState(true);
   const [tableData, setTableData] = useState<IUserTableRow[]>([] as IUserTableRow[]);
+
+  const { profile } = useContext(AuthContext);
+
+  const isAdmin = AccessProfile.ADMIN === profile;
 
   const { refetch } = useQuery(
     ['user', searchParam, pageParam, statusParam],
@@ -108,5 +114,6 @@ export default function UseUserManagementController() {
     handleChangeStatus,
     goToCreateUser,
     goToUpdateUser,
+    isAdmin,
   };
 }
