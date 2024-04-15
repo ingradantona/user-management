@@ -21,6 +21,7 @@ export function UserManagement() {
     totalPageParam,
     goToCreateUser,
     goToUpdateUser,
+    isAdmin,
   } = UseUserManagementController();
   return (
     <>
@@ -33,7 +34,7 @@ export function UserManagement() {
             onChangeInactive={() => setStatusParam(false)}
           />
           <Search value={searchParam} onSearch={onSearch} />
-          <ButtonMain label="Cadastrar Usuário" onClick={goToCreateUser} />
+          <ButtonMain label="Cadastrar Usuário" onClick={goToCreateUser} disabled={!isAdmin} />
           <ButtonMain label="Editar dados" $secondaryStyle onClick={goToUpdateUser} />
         </InLineContainerBetween>
         <BasicTable
@@ -41,6 +42,7 @@ export function UserManagement() {
           headers={headers}
           enableActions
           onChangeStatus={handleChangeStatus}
+          canChangeStatus={!isAdmin}
         />
         <Pagination
           currentPage={pageParam}

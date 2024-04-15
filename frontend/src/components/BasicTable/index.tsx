@@ -6,6 +6,7 @@ import { organizeData } from './utils/organizeData';
 import { CircularProgressStyled, Empty, Progress, Wrapper } from './styles';
 import { Row } from './components/Row';
 import TableHeader from './components/Header';
+import { Body1 } from '../../assets/styles/typography';
 
 export default function BasicTable({
   id,
@@ -22,12 +23,14 @@ export default function BasicTable({
   if (data?.length === 0 && !loading) {
     return (
       <Wrapper>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ width: '100%' }} aria-label="simple table">
           <TableHead>
             <TableHeader headers={headers} enableActions={enableActions} />
           </TableHead>
         </Table>
-        <Empty>{/* <img src={NotFound} /> */}</Empty>
+        <Empty>
+          <Body1>Sem resultados de busca</Body1>
+        </Empty>
       </Wrapper>
     );
   }

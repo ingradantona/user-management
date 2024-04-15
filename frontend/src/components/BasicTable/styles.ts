@@ -42,14 +42,11 @@ export const Actions = styled.div`
         width: auto;
       }
     }
-  }
-
-  .icon-button {
-    background-color: transparent;
-    color: ${({ theme }) => theme.colors.typography.basic};
 
     &:disabled {
-      color: blue;
+      & svg {
+        fill: ${({ theme }) => theme.colors.disabled};
+      }
     }
   }
 `;
