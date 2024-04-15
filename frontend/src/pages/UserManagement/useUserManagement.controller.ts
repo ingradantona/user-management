@@ -73,7 +73,6 @@ export default function UseUserManagementController() {
   ];
 
   function onSearch(e: string) {
-    console.log(e);
     setSearchParam(e);
     setPageParam(1);
   }

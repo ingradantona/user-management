@@ -9,7 +9,7 @@ import {
   Legend,
   ChartOptions,
 } from 'chart.js';
-import { PropsChart } from '../types';
+import { PropsChart } from './types';
 import { useTheme } from 'styled-components';
 import {
   BarContainer,
@@ -26,8 +26,6 @@ export function BarChart({ dataChart, titleChart }: PropsChart) {
   const { colors: theme } = useTheme();
 
   const total = dataChart?.labels.length;
-
-  console.log(dataChart);
 
   const options: ChartOptions<'bar'> = {
     maintainAspectRatio: false,

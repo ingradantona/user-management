@@ -2,7 +2,7 @@ import { BasePageContainer } from '../../assets/styles/shared';
 import { Header2 } from '../../assets/styles/typography';
 import { BarChart } from '../../components/Chart/BarChart';
 import { Select } from '../../components/Input/Select';
-import { BaseContainer } from './styles';
+import { BarChartContainer, ChartsContainer } from './styles';
 import UseReportController from './useReport.controller';
 
 export function Report() {
@@ -17,9 +17,11 @@ export function Report() {
           onChangeValue={(value) => setProfile(value)}
           placeholder="Selecione um perfil"
         />
-        <BaseContainer>
-          <BarChart dataChart={chartData} titleChart="Usuários" />
-        </BaseContainer>
+        <ChartsContainer>
+          <BarChartContainer>
+            <BarChart dataChart={chartData} titleChart="Total de usuários" />
+          </BarChartContainer>
+        </ChartsContainer>
       </BasePageContainer>
     </>
   );

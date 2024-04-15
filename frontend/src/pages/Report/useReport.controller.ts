@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
 import { getChartData, getProfiles } from '../../services/user.service';
 import { ISelectCurrentValue, Option } from '../../components/Input/Select/types';
-import { useState } from 'react';
-import { IChartData } from '../../components/Chart/types';
+import { useEffect, useState } from 'react';
+import { IChartData } from '../../components/Chart/BarChart/types';
 import { useTheme } from 'styled-components';
 
 export default function UseReportController() {
@@ -33,7 +33,7 @@ export default function UseReportController() {
     },
   });
 
-  useQuery(['chart', profile], () => getChartData(profile?.id), {
+  const { refetch } = useQuery(['chart', profile], () => getChartData(profile?.id), {
     onSuccess: (dataSuccess) => {
       let newData = initialChartData;
       newData.datasets[0].data = [dataSuccess.data.active, dataSuccess.data.inactive];
@@ -41,6 +41,10 @@ export default function UseReportController() {
       setChartData(newData);
     },
   });
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return { profile, setProfile, options, chartData };
 }
