@@ -53,3 +53,8 @@ export interface IUserFilter {
   search: string;
   user_status: boolean;
 }
+
+export interface IUserChartResponse {
+  active: number;
+  inactive: number;
+}
