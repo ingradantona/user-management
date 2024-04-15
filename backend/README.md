@@ -49,7 +49,7 @@ This application runs on Docker. You don't need to create any database instances
  
 ```bash
 
-$ docker-compose-f ./db.docker-compose.yml
+$ docker-compose -f ./db.docker-compose.yml up -d
 
 # watch mode
 
