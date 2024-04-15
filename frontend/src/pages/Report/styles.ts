@@ -6,10 +6,17 @@ export const ChartsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  & img {
+    width: 30vw;
+    height: auto;
+
+    max-height: 100%;
+  }
 `;
 
 export const BarChartContainer = styled.div`
-  width: calc(100%);
+  width: 60%;
   height: 100%;
   border-radius: 10px;
   display: flex;

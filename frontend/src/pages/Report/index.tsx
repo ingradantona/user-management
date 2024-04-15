@@ -4,6 +4,7 @@ import { BarChart } from '../../components/Chart/BarChart';
 import { Select } from '../../components/Input/Select';
 import { BarChartContainer, ChartsContainer } from './styles';
 import UseReportController from './useReport.controller';
+import Icon from '../../assets/images/chart_icon.svg';
 
 export function Report() {
   const { options, profile, setProfile, chartData } = UseReportController();
@@ -21,6 +22,7 @@ export function Report() {
           <BarChartContainer>
             <BarChart dataChart={chartData} titleChart="Total de usuários" />
           </BarChartContainer>
+          <img src={Icon} />
         </ChartsContainer>
       </BasePageContainer>
     </>
