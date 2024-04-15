@@ -32,6 +32,7 @@ export class AuthService {
       userSaved.user_id,
       userSaved.user_email,
       userSaved.user_name,
+      userSaved.user_surname,
       userSaved.profile.profile_name,
     );
 
@@ -48,6 +49,7 @@ export class AuthService {
     user_id: number,
     user_email: string,
     user_name: string,
+    user_surname: string,
     profile_name: string,
   ): Promise<Tokens> {
     const [access_token, refresh_token] = await Promise.all([
@@ -56,6 +58,7 @@ export class AuthService {
           user_id: user_id,
           user_email: user_email,
           user_name: user_name,
+          user_surname: user_surname,
           profile_name: profile_name,
         },
         {

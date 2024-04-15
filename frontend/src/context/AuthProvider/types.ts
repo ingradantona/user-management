@@ -3,9 +3,11 @@ export interface IAuthProvider {
 }
 
 export interface IAuthContext {
-  userName?: string | null;
-  profile?: string | null;
-  userSurname?: string | null;
+  userId?: number;
+  userName: string;
+  userEmail: string;
+  profile: string;
+  userSurname: string;
   handleLogout: () => void;
   handleLogin: (userEmail: string, userPassword: string) => void;
 }

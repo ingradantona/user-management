@@ -92,6 +92,10 @@ export default function UseUserManagementController() {
     navigate('/users/new');
   }
 
+  function goToUpdateUser() {
+    navigate('/users/update');
+  }
+
   return {
     searchParam,
     pageParam,
@@ -104,5 +108,6 @@ export default function UseUserManagementController() {
     tableData,
     handleChangeStatus,
     goToCreateUser,
+    goToUpdateUser,
   };
 }

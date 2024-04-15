@@ -31,6 +31,8 @@ api.interceptors.response.use(
       toast.error('Sua sessão expirou');
       localStorage.clear();
       setTimeout(() => (window.location.href = '/'), 1000);
+    } else {
+      return Promise.reject(error);
     }
   },
 );

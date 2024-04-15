@@ -20,6 +20,7 @@ export function UserManagement() {
     setPageParam,
     totalPageParam,
     goToCreateUser,
+    goToUpdateUser,
   } = UseUserManagementController();
   return (
     <>
@@ -33,7 +34,7 @@ export function UserManagement() {
           />
           <Search value={searchParam} onSearch={onSearch} />
           <ButtonMain label="Cadastrar Usuário" onClick={goToCreateUser} />
-          <ButtonMain label="Editar dados" $secondaryStyle />
+          <ButtonMain label="Editar dados" $secondaryStyle onClick={goToUpdateUser} />
         </InLineContainerBetween>
         <BasicTable
           data={tableData}

@@ -16,9 +16,11 @@ export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 export function AuthProvider({ children }: IAuthProvider) {
   const navigate = useNavigate();
 
-  const [userName, setUserName] = useState<string | null>(null);
-  const [userSurname, setUserSurname] = useState<string | null>(null);
-  const [profile, setProfile] = useState<string | null>(null);
+  const [userId, setUserId] = useState<number>();
+  const [userName, setUserName] = useState<string>('');
+  const [userSurname, setUserSurname] = useState<string>('');
+  const [userEmail, setUserEmail] = useState<string>('');
+  const [profile, setProfile] = useState<string>('');
 
   const tokenByLocalStorage: string | null = getTokenLocalStorage();
 
@@ -26,9 +28,11 @@ export function AuthProvider({ children }: IAuthProvider) {
     const decodedToken = getDecodedTokenLocalStorage();
 
     if (decodedToken) {
+      setUserId(decodedToken.user_id);
       setUserName(decodedToken.user_name);
       setProfile(decodedToken.profile_name);
       setUserSurname(decodedToken.user_surname);
+      setUserEmail(decodedToken.user_email);
     }
   }, [tokenByLocalStorage]);
 
@@ -59,8 +63,10 @@ export function AuthProvider({ children }: IAuthProvider) {
   return (
     <AuthContext.Provider
       value={{
+        userId,
         userName,
         userSurname,
+        userEmail,
         profile,
         handleLogin,
         handleLogout,

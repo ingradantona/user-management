@@ -6,6 +6,7 @@ import {
   IUserFilter,
   IUsersResponse,
   IProfile,
+  IUpdateUser,
 } from '../utils/interface/user.interface';
 
 export async function getAllUsersService({
@@ -33,4 +34,15 @@ export async function createUser(payload: ICreateUser): Promise<AxiosResponse<IU
 
 export async function getProfiles(): Promise<AxiosResponse<IProfile[]>> {
   return await api.get(`/user/profiles`);
+}
+
+export async function updateUser(
+  payload: IUpdateUser,
+  id?: number | null,
+): Promise<AxiosResponse<IUser>> {
+  try {
+    return await api.put(`/user/${id}`, payload);
+  } catch (err) {
+    throw err;
+  }
 }
