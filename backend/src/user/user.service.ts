@@ -141,10 +141,10 @@ export class UserService {
       userBuilder.andWhere(
         new Brackets((queryBuilderOne) => {
           queryBuilderOne
-            .where('user.user_name LIKE :user_name', {
+            .where('user.user_name ILIKE :user_name', {
               user_name: `%${search}%`,
             })
-            .orWhere('user.user_surname LIKE :user_surname', {
+            .orWhere('user.user_surname ILIKE :user_surname', {
               user_surname: `%${search}%`,
             });
         }),
