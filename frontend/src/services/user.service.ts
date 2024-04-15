@@ -7,6 +7,7 @@ import {
   IUsersResponse,
   IProfile,
   IUpdateUser,
+  IUserChartResponse,
 } from '../utils/interface/user.interface';
 
 export async function getAllUsersService({
@@ -40,9 +41,13 @@ export async function updateUser(
   payload: IUpdateUser,
   id?: number | null,
 ): Promise<AxiosResponse<IUser>> {
-  try {
-    return await api.put(`/user/${id}`, payload);
-  } catch (err) {
-    throw err;
-  }
+  return await api.put(`/user/${id}`, payload);
+}
+
+export async function getChartData(id?: number): Promise<AxiosResponse<IUserChartResponse>> {
+  const params = new URLSearchParams();
+
+  if (id) params.append('profile_id', String(id));
+
+  return await api.get('/user/chart', { params });
 }
