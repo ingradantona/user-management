@@ -11,12 +11,12 @@ import UseUpdateUserController from './useUpdateUserCrontroller';
 export function UpdateUser() {
   const {
     isFormValid,
-    setUserEmail,
-    setUserName,
-    setUserSurname,
-    userEmail,
-    userName,
-    userSurname,
+    setEmail,
+    setName,
+    setSurname,
+    email,
+    name,
+    surname,
     handleSubmit,
     isLoading,
     goToUserGuide,
@@ -30,21 +30,21 @@ export function UpdateUser() {
           <DefaultInput
             label="Nome"
             placeholder="Insia o nome do usuário"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
 
           <DefaultInput
             label="Sobrenome"
             placeholder="Insia o sobrenome do usuário"
-            value={userSurname}
-            onChange={(e) => setUserSurname(e.target.value)}
+            value={surname}
+            onChange={(e) => setSurname(e.target.value)}
           />
           <DefaultInput
             label="E-mail"
             placeholder="Insia o e-mail do usuário"
-            value={userEmail}
-            onChange={(e) => setUserEmail(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <InLineContainerCenter>
             <ButtonMain

@@ -36,7 +36,10 @@ export async function getProfiles(): Promise<AxiosResponse<IProfile[]>> {
   return await api.get(`/user/profiles`);
 }
 
-export async function updateUser(payload: IUpdateUser, id: number): Promise<AxiosResponse<IUser>> {
+export async function updateUser(
+  payload: IUpdateUser,
+  id?: number | null,
+): Promise<AxiosResponse<IUser>> {
   try {
     return await api.put(`/user/${id}`, payload);
   } catch (err) {

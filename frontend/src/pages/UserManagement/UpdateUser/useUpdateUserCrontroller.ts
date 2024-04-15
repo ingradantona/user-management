@@ -1,35 +1,45 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { updateUser } from '../../../services/user.service';
 import { CustomAxiosError } from '../../../utils/interface/error.interface';
 import toast from 'react-hot-toast';
+import { AuthContext } from '../../../context/AuthProvider';
 
 export default function UseUpdateUserController() {
   const navigate = useNavigate();
 
-  const [userName, setUserName] = useState<string>('');
-  const [userSurname, setUserSurname] = useState<string>('');
-  const [userEmail, setUserEmail] = useState<string>('');
+  const { userId, userName, userSurname, userEmail } = useContext(AuthContext);
+
+  const [name, setName] = useState<string>('');
+  const [surname, setSurname] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
-  const [userId, setUserId] = useState(2);
 
   const isFormValid = userName && userSurname && userEmail;
+
+  useEffect(() => {
+    setName(userName);
+    setSurname(userSurname);
+    setEmail(userEmail);
+  }, [userEmail, userName, userSurname]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     try {
-      setIsLoading(true);
-      await updateUser(
-        {
-          user_email: userEmail,
-          user_name: userName,
-          user_surname: userSurname,
-        },
-        userId,
-      );
-      await navigate('/users');
-      toast.success('Usuário atualizado com sucesso');
+      if (name && surname && email) {
+        setIsLoading(true);
+        await updateUser(
+          {
+            user_email: email,
+            user_name: name,
+            user_surname: surname,
+          },
+          userId,
+        );
+        await navigate('/users');
+        toast.success('Usuário atualizado com sucesso');
+      }
     } catch (error) {
       const err = error as CustomAxiosError;
       toast.dismiss();
@@ -45,12 +55,12 @@ export default function UseUpdateUserController() {
 
   return {
     isFormValid,
-    userName,
-    setUserName,
-    userSurname,
-    setUserSurname,
-    userEmail,
-    setUserEmail,
+    name,
+    setName,
+    surname,
+    setSurname,
+    email,
+    setEmail,
     handleSubmit,
     isLoading,
     goToUserGuide,
