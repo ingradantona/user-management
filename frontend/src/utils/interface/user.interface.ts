@@ -17,6 +17,12 @@ export interface ICreateUser {
   profile_id?: number;
 }
 
+export interface IUpdateUser {
+  user_name: string;
+  user_surname: string;
+  user_email: string;
+}
+
 export interface IUsersResponse {
   items: IUser[];
   meta: {

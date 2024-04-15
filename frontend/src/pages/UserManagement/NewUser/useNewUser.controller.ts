@@ -59,6 +59,10 @@ export default function UseNewUserController() {
     }
   }
 
+  function goToUserGuide() {
+    navigate('/users');
+  }
+
   return {
     isFormValid,
     handleShowPassword,
@@ -76,5 +80,6 @@ export default function UseNewUserController() {
     userProfile,
     setUserProfile,
     options,
+    goToUserGuide,
   };
 }

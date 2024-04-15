@@ -1,4 +1,8 @@
-import { BasePageContainer, FormContainer } from '../../../assets/styles/shared';
+import {
+  BasePageContainer,
+  FormContainer,
+  InLineContainerCenter,
+} from '../../../assets/styles/shared';
 import { Header2 } from '../../../assets/styles/typography';
 import { ButtonMain } from '../../../components/Button/ButtonMain';
 import { DefaultInput } from '../../../components/Input/DefaultInput';
@@ -23,6 +27,7 @@ export function NewUser() {
     userProfile,
     options,
     setUserProfile,
+    goToUserGuide,
   } = UseNewUserController();
 
   return (
@@ -63,12 +68,20 @@ export function NewUser() {
             values={options}
             onChangeValue={(value) => setUserProfile(value)}
           />
-          <ButtonMain
-            label="Cadastrar"
-            type="submit"
-            disabled={!isFormValid}
-            isLoading={isLoading}
-          />
+          <InLineContainerCenter>
+            <ButtonMain
+              label="Atualizar"
+              type="submit"
+              disabled={!isFormValid}
+              isLoading={isLoading}
+            />
+            <ButtonMain
+              $secondaryStyle
+              label="Cancelar"
+              isLoading={isLoading}
+              onClick={goToUserGuide}
+            />
+          </InLineContainerCenter>
         </FormContainer>
       </BasePageContainer>
     </>
