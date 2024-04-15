@@ -29,6 +29,8 @@ export default function UseReportController() {
         value: item.profile_name,
       }));
 
+      data.unshift({ id: 0, value: 'Todos' });
+
       setOptions(data);
     },
   });
