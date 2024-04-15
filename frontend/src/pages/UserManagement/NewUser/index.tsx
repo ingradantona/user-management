@@ -37,26 +37,26 @@ export function NewUser() {
         <FormContainer onSubmit={handleSubmit}>
           <DefaultInput
             label="Nome"
-            placeholder="Insia o nome do usuário"
+            placeholder="Insira o nome do usuário"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
           />
 
           <DefaultInput
             label="Sobrenome"
-            placeholder="Insia o sobrenome do usuário"
+            placeholder="Insira o sobrenome do usuário"
             value={userSurname}
             onChange={(e) => setUserSurname(e.target.value)}
           />
           <DefaultInput
             label="E-mail"
-            placeholder="Insia o e-mail do usuário"
+            placeholder="Insira o e-mail do usuário"
             value={userEmail}
             onChange={(e) => setUserEmail(e.target.value)}
           />
           <DefaultInput
             label="Senha"
-            placeholder="Insia a senha do usuário"
+            placeholder="Insira a senha do usuário"
             type="password"
             value={userPassword}
             onChange={(e) => setUserPassword(e.target.value)}
@@ -64,13 +64,15 @@ export function NewUser() {
             toggleShowPassword={handleShowPassword}
           />
           <Select
+            label="Perfil"
+            placeholder="Escolha o perfil do usuário"
             value={userProfile}
             values={options}
             onChangeValue={(value) => setUserProfile(value)}
           />
           <InLineContainerCenter>
             <ButtonMain
-              label="Atualizar"
+              label="Cadastrar"
               type="submit"
               disabled={!isFormValid}
               isLoading={isLoading}
